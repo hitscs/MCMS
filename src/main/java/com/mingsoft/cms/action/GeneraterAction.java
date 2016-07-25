@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,6 +40,8 @@ import com.mingsoft.util.StringUtil;
 import com.mingsoft.util.proxy.Header;
 import com.mingsoft.util.proxy.Proxy;
 import com.mingsoft.util.proxy.Result;
+
+import net.mingsoft.basic.util.BasicUtil;
 
 /**
  * 
@@ -76,7 +79,7 @@ import com.mingsoft.util.proxy.Result;
  *          </p>
  */
 @Controller("cmsGenerater")
-@RequestMapping("/manager/cms/generate")
+@RequestMapping("/${managerPath}/cms/generate")
 @Scope("request")
 public class GeneraterAction extends BaseAction {
 
@@ -109,6 +112,9 @@ public class GeneraterAction extends BaseAction {
 	 */
 	@Autowired
 	private CmsParser cmsParser;
+	
+	@Value("${managerPath}")
+	private String managerPath;
 
 	/**
 	 * 一键更新所有
@@ -117,7 +123,7 @@ public class GeneraterAction extends BaseAction {
 	 */
 	@RequestMapping("/all")
 	public String all() {
-		return Const.VIEW+"/cms/generate/generate_all";
+		return view("/cms/generate/generate_all");
 	}
 	
 
@@ -128,7 +134,7 @@ public class GeneraterAction extends BaseAction {
 	 */
 	@RequestMapping("/index")
 	public String index() {
-		return Const.VIEW+"/cms/generate/generate_index";
+		return view("/cms/generate/generate_index");
 	}
 
 	/**
@@ -199,18 +205,17 @@ public class GeneraterAction extends BaseAction {
 	@ResponseBody
 	public boolean genernateColumn(HttpServletRequest request, HttpServletResponse response, @PathVariable int columnId) {
 		// 获取站点id
-		int appId = getManagerBySession(request).getBasicId();
-		AppEntity app = (AppEntity) appBiz.getEntity(appId);
+		AppEntity app = BasicUtil.getApp();
 		String mobileStyle = app.getAppMobileStyle(); // 手机端模版
 		String url = app.getAppHostUrl() + File.separator + IParserRegexConstant.HTML_SAVE_PATH + File.separator + app.getAppId();
 		// 站点生成后保存的html地址
-		String generatePath = getRealPath(request, IParserRegexConstant.HTML_SAVE_PATH) + File.separator + appId + File.separator;
+		String generatePath = getRealPath(request, IParserRegexConstant.HTML_SAVE_PATH) + File.separator + app.getAppId() + File.separator;
 		FileUtil.createFolder(generatePath);
 		// 网站风格物理路径
-		String tmpPath = getRealPath(request, IParserRegexConstant.REGEX_SAVE_TEMPLATE) + File.separator + appId + File.separator + app.getAppStyle();
+		String tmpPath = getRealPath(request, IParserRegexConstant.REGEX_SAVE_TEMPLATE) + File.separator + app.getAppId() + File.separator + app.getAppStyle();
 		List<ColumnEntity> columns = new ArrayList<ColumnEntity>();
 		// 如果栏目id小于0则更新所有的栏目，否则只更新选中的栏目
-		Integer modelId = modelBiz.getEntityByModelCode(ModelCode.CMS_COLUMN).getModelId(); // 查询当前模块编号
+		int modelId = BasicUtil.getModelCodeId(ModelCode.CMS_COLUMN); // 查询当前模块编号
 		if (columnId > 0) {
 			List<CategoryEntity> categorys = columnBiz.queryChildrenCategory(columnId, app.getAppId(),modelId);
 			for (CategoryEntity c : categorys) {
@@ -382,7 +387,7 @@ public class GeneraterAction extends BaseAction {
 		
 		model.addAttribute("now", new Date());
 		model.addAttribute("list",  JSONArray.toJSONString(list));
-		return Const.VIEW+"/cms/generate/generate_article";
+		return view("/cms/generate/generate_article");
 	}
 
 	/**
@@ -393,7 +398,7 @@ public class GeneraterAction extends BaseAction {
 	@RequestMapping("/product")
 	public String product(HttpServletRequest request) {
 		request.setAttribute("now", new Date());
-		return Const.VIEW+"/cms/generate/generate_product";
+		return view("/cms/generate/generate_product");
 	}
 
 	/**
@@ -621,10 +626,10 @@ public class GeneraterAction extends BaseAction {
 			cookie += c.getName() + "=" + c.getValue() + ";";
 		}
 		header.setCookie(cookie);
-		Result re = Proxy.get(this.getUrl(request) + "/manager/cms/generate/" + columnId + "/generateArticle.do", header, parms);
+		Result re = Proxy.get(this.getUrl(request) + managerPath + "/cms/generate/" + columnId + "/generateArticle.do", header, parms);
 		ColumnEntity column = (ColumnEntity) columnBiz.getEntity(columnId);
 		if (column != null && column.getColumnType() == ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {
-			Proxy.get(this.getUrl(request) + "/manager/cms/generate/" + columnId + "/genernateColumn.do", header, null);
+			Proxy.get(this.getUrl(request) + managerPath + "/cms/generate/" + columnId + "/genernateColumn.do", header, null);
 		}
 		// 2、更新栏目
 		// Proxy.get(this.getUrl(request)+"/manager/cms/generate/"+columnId+"/genernateColumn.do",
@@ -634,7 +639,7 @@ public class GeneraterAction extends BaseAction {
 		Map map = new HashMap();
 		map.put("url", IParserRegexConstant.REGEX_INDEX_HTML);
 		map.put("position", IParserRegexConstant.HTML_INDEX);
-		Proxy.get(this.getUrl(request) + "/manager/cms/generate/generateIndex.do", header, map);
+		Proxy.get(this.getUrl(request) + managerPath + "/cms/generate/generateIndex.do", header, map);
 
 		this.outJson(response, ModelCode.CMS_GENERATE_ARTICLE, true);
 	}
@@ -734,7 +739,7 @@ public class GeneraterAction extends BaseAction {
 		//获取所有的内容管理栏目
 		List<ColumnEntity> list  = columnBiz.queryAll(websiteId,modelId);
 		model.addAttribute("list",  JSONArray.toJSONString(list));
-		return Const.VIEW+"/cms/generate/generate_column";
+		return view("/cms/generate/generate_column");
 	}
 
 	/**

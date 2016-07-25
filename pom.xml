@@ -4,13 +4,24 @@
 	<groupId>com.mingsoft</groupId>
 	<artifactId>mcms</artifactId>
 	<packaging>war</packaging>
-	<version>4.5.7</version>
+	<version>4.5.8</version>
 	<name>铭飞MCMS开源系统</name>
 	<url>http://ms.ming-soft.com</url>
 	<repositories>
 		<repository>
 			<id>sonatype-nexus-snapshots</id>
 			<name>Sonatype Nexus Snapshots</name>
+			<url>http://repo1.maven.org/maven2/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>sonatype</id>
+			<name>Sonatype Snapshots</name>
 			<url>https://oss.sonatype.org/content/groups/public/</url>
 			<releases>
 				<enabled>true</enabled>
@@ -21,56 +32,16 @@
 		</repository>
 	</repositories>
 	<properties>
-		<ms.util.version>1.0.0</ms.util.version>
-		<ms.base.version>1.0.0</ms.base.version>
-		<ms.proxy.version>1.0.0</ms.proxy.version>
-		<ms.parser.version>1.0.0</ms.parser.version>
-		<ms.ueditor.version>1.0.0-SNAPSHOT</ms.ueditor.version>
-		<shiro-freemarker-tags.version>0.2-SNAPSHOT</shiro-freemarker-tags.version>
-		<ms.basic.version>1.0.2-SNAPSHOT</ms.basic.version>
-		<ms.mdiy.version>1.0.1-SNAPSHOT</ms.mdiy.version>
+		<ms.base.version>1.0.2-SNAPSHOT</ms.base.version>
+		<ms.basic.version>1.0.3-SNAPSHOT</ms.basic.version>
+		<ms.mdiy.version>1.0.2-SNAPSHOT</ms.mdiy.version>
 	</properties>
 	<dependencies>
 		<!-- MAVEN源码加载 -->
 		<dependency>
 			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-util</artifactId>
-			<version>${ms.util.version}</version>
-			<classifier>sources</classifier>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-base</artifactId>
 			<version>${ms.base.version}</version>
-			<classifier>sources</classifier>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-proxy</artifactId>
-			<version>${ms.proxy.version}</version>
-			<classifier>sources</classifier>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-parser</artifactId>
-			<version>${ms.parser.version}</version>
-			<classifier>sources</classifier>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-ueditor</artifactId>
-			<version>${ms.ueditor.version}</version>
-			<classifier>sources</classifier>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>shiro-freemarker-tags</artifactId>
-			<version>${shiro-freemarker-tags.version}</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
@@ -96,11 +67,6 @@
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-parser</artifactId>
-			<version>${ms.parser.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-basic</artifactId>
 			<version>${ms.basic.version}</version>
 			<type>war</type>
@@ -111,11 +77,6 @@
 			<version>${ms.basic.version}</version>
 			<classifier>classes</classifier>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-ueditor</artifactId>
-			<version>${ms.ueditor.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
@@ -135,7 +96,7 @@
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-upgrader</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.2-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>
