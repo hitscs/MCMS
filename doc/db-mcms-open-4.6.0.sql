@@ -2,21 +2,21 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50520
+Source Server Version : 50716
 Source Host           : localhost:3306
 Source Database       : db-mcms-open
 
 Target Server Type    : MYSQL
-Target Server Version : 50520
+Target Server Version : 50716
 File Encoding         : 65001
 
-Date: 2016-07-06 10:22:06
+Date: 2016-12-29 09:43:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `app`
+-- Table structure for app
 -- ----------------------------
 DROP TABLE IF EXISTS `app`;
 CREATE TABLE `app` (
@@ -44,7 +44,7 @@ CREATE TABLE `app` (
 INSERT INTO `app` VALUES ('1', 'MCMS-OPEN', 'http://localhost:8080/mcms', '', '', '', 'mooc', '50', '', null, 'm', null, '', '0', '0');
 
 -- ----------------------------
--- Table structure for `basic`
+-- Table structure for basic
 -- ----------------------------
 DROP TABLE IF EXISTS `basic`;
 CREATE TABLE `basic` (
@@ -278,7 +278,7 @@ INSERT INTO `basic` VALUES ('218', '孙建东', '锐诚PPT培训部总监', '/up
 INSERT INTO `basic` VALUES ('219', '梅幸', '锐诚PPT金牌设计师', '/upload/article/1638/1464860570155.png', '0', '0', '2016-06-02 17:42:27', '2016-06-03 15:47:27', '0', '115', '1', '8', null, null, null, null);
 
 -- ----------------------------
--- Table structure for `basic_attention`
+-- Table structure for basic_attention
 -- ----------------------------
 DROP TABLE IF EXISTS `basic_attention`;
 CREATE TABLE `basic_attention` (
@@ -298,7 +298,7 @@ CREATE TABLE `basic_attention` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `basic_category`
+-- Table structure for basic_category
 -- ----------------------------
 DROP TABLE IF EXISTS `basic_category`;
 CREATE TABLE `basic_category` (
@@ -317,7 +317,7 @@ CREATE TABLE `basic_category` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `basic_child`
+-- Table structure for basic_child
 -- ----------------------------
 DROP TABLE IF EXISTS `basic_child`;
 CREATE TABLE `basic_child` (
@@ -335,7 +335,7 @@ CREATE TABLE `basic_child` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `basic_log`
+-- Table structure for basic_log
 -- ----------------------------
 DROP TABLE IF EXISTS `basic_log`;
 CREATE TABLE `basic_log` (
@@ -366,7 +366,7 @@ INSERT INTO `basic_log` VALUES ('13', '73', '192.168.1.165', '2016-06-12 11:31:1
 INSERT INTO `basic_log` VALUES ('14', '73', '192.168.1.152', '2016-06-13 19:53:50', '0');
 
 -- ----------------------------
--- Table structure for `basic_type`
+-- Table structure for basic_type
 -- ----------------------------
 DROP TABLE IF EXISTS `basic_type`;
 CREATE TABLE `basic_type` (
@@ -380,7 +380,7 @@ CREATE TABLE `basic_type` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `category`
+-- Table structure for category
 -- ----------------------------
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
@@ -394,6 +394,13 @@ CREATE TABLE `category` (
   `CATEGORY_SMALLIMG` varchar(120) DEFAULT NULL COMMENT '略缩图',
   `CATEGORY_APPID` int(11) DEFAULT NULL COMMENT '应用编号',
   `CATEGORY_DESCRIPTION` varchar(45) DEFAULT NULL COMMENT '栏目描述',
+  `CATEGORY_PARENT_ID` varchar(255) DEFAULT NULL COMMENT '父类型编号',
+  `CATEGORY_DICT_ID` int(11) DEFAULT '0' COMMENT '字典对应编号',
+  `CATEGORY_CREATE_BY` int(11) DEFAULT '0' COMMENT '创建人',
+  `CATEGORY_CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `CATEGORY_UPDATE_BY` int(11) DEFAULT '0' COMMENT '更新人',
+  `CATEGORY_UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
+  `CATEGORY_DEL` int(11) NOT NULL DEFAULT '0' COMMENT '删除状态',
   PRIMARY KEY (`CATEGORY_ID`),
   KEY `CATEGORY_APPID` (`CATEGORY_APPID`),
   KEY `CATEGORY_MANAGERID` (`CATEGORY_MANAGERID`),
@@ -404,53 +411,53 @@ CREATE TABLE `category` (
 -- ----------------------------
 -- Records of category
 -- ----------------------------
-INSERT INTO `category` VALUES ('19', '联系我们', '0', '2015-09-01 15:31:30', '50', '7', '0', null, '1', null);
-INSERT INTO `category` VALUES ('23', '常见问题', '0', '2015-09-01 15:33:54', '50', '87', '0', null, '1', null);
-INSERT INTO `category` VALUES ('33', '投资', '0', '2015-09-02 00:32:02', '50', '87', '0', null, '1', null);
-INSERT INTO `category` VALUES ('52', '招商加盟', '0', '2016-03-15 17:35:38', '50', '7', '0', null, '1', null);
-INSERT INTO `category` VALUES ('53', '关于我们', '0', '2016-03-16 17:16:11', '50', '7', '0', null, '1', null);
-INSERT INTO `category` VALUES ('59', '新闻中心', '0', '2016-03-26 13:18:53', '50', '7', '0', null, '1', null);
-INSERT INTO `category` VALUES ('61', '客户案例', '0', '2016-03-26 13:26:34', '50', '7', '0', null, '1', null);
-INSERT INTO `category` VALUES ('62', '新闻', '0', '2016-03-26 13:27:39', '50', '7', '0', null, '1', null);
-INSERT INTO `category` VALUES ('63', '服务', '0', '2016-03-26 13:29:07', '50', '7', '0', null, '1', null);
-INSERT INTO `category` VALUES ('65', '网站设计', '3', '2016-03-26 14:34:49', '50', '7', '61', null, '1', null);
-INSERT INTO `category` VALUES ('66', '手机应用', '1', '2016-03-26 14:35:49', '50', '7', '61', null, '1', null);
-INSERT INTO `category` VALUES ('67', '平面设计', '2', '2016-03-26 14:36:15', '50', '7', '61', null, '1', null);
-INSERT INTO `category` VALUES ('68', '公司新闻', '3', '2016-03-27 09:39:22', '50', '7', '59', null, '1', null);
-INSERT INTO `category` VALUES ('69', '行业新闻', '2', '2016-03-27 09:39:48', '50', '7', '59', null, '1', null);
-INSERT INTO `category` VALUES ('70', '最新动态', '1', '2016-03-27 09:40:22', '50', '7', '59', null, '1', null);
-INSERT INTO `category` VALUES ('83', '研发团队', '2', '2016-03-28 16:51:31', '50', '7', '62', null, '1', null);
-INSERT INTO `category` VALUES ('84', '研发成果', '1', '2016-03-28 16:54:29', '50', '7', '62', null, '1', null);
-INSERT INTO `category` VALUES ('87', '客户的声音', '0', '2016-03-30 10:27:42', '50', '7', '0', null, '1', null);
-INSERT INTO `category` VALUES ('93', '关于我们', '0', '2016-04-11 19:52:30', '50', '7', '0', null, '1', null);
-INSERT INTO `category` VALUES ('94', '主营业务', '5', '2016-04-11 19:54:05', '50', '7', '93', null, '1', null);
-INSERT INTO `category` VALUES ('95', '企业文化', '4', '2016-04-11 19:54:43', '50', '7', '93', null, '1', null);
-INSERT INTO `category` VALUES ('96', '资质荣誉', '0', '2016-04-11 19:55:18', '50', '7', '93', null, '1', null);
-INSERT INTO `category` VALUES ('97', '合作伙伴', '0', '2016-04-11 19:55:41', '50', '7', '93', null, '1', null);
-INSERT INTO `category` VALUES ('98', '企业优势', '0', '2016-04-11 19:56:04', '50', '7', '93', null, '1', null);
-INSERT INTO `category` VALUES ('99', '服务项目', '0', '2016-04-11 20:32:40', '50', '7', '0', null, '1', null);
-INSERT INTO `category` VALUES ('100', '首页幻灯', '0', '2016-04-11 20:56:40', '50', '7', '0', null, '1', null);
-INSERT INTO `category` VALUES ('101', ' 全案设计', '3', '2016-04-11 21:04:41', '50', '7', '99', null, '1', null);
-INSERT INTO `category` VALUES ('102', '企业形象设计', '4', '2016-04-11 21:05:11', '50', '7', '99', null, '1', null);
-INSERT INTO `category` VALUES ('103', '产品包装设计', '2', '2016-04-11 21:05:42', '50', '7', '99', null, '1', null);
-INSERT INTO `category` VALUES ('104', '连锁店设计', '0', '2016-04-11 21:05:57', '50', '7', '99', null, '1', null);
-INSERT INTO `category` VALUES ('106', '产品列表', '0', '2016-04-11 21:15:27', '50', '7', '0', null, '1', null);
-INSERT INTO `category` VALUES ('107', '产品一类', '2', '2016-04-11 21:15:43', '50', '7', '106', null, '1', null);
-INSERT INTO `category` VALUES ('108', '产品二类', '1', '2016-04-11 21:16:21', '50', '7', '106', null, '1', null);
-INSERT INTO `category` VALUES ('115', '专家研究院', '0', '2016-04-11 21:29:24', '50', '7', '0', null, '1', null);
-INSERT INTO `category` VALUES ('133', '网站优化', '3', '2016-04-17 18:32:05', '50', '7', '53', null, '1', null);
-INSERT INTO `category` VALUES ('134', '网络营销', '2', '2016-04-17 18:33:01', '50', '7', '53', null, '1', null);
-INSERT INTO `category` VALUES ('135', '域名注册', '1', '2016-04-17 18:33:47', '50', '7', '53', null, '1', null);
-INSERT INTO `category` VALUES ('136', '优化报价', '0', '2016-04-17 21:13:17', '50', '7', '52', null, '1', null);
-INSERT INTO `category` VALUES ('138', '服务中心', '0', '2016-04-29 17:15:49', '50', '7', '63', null, '1', null);
-INSERT INTO `category` VALUES ('141', '联系我们', '2', '2016-05-04 14:42:07', '50', '7', '19', null, '1', null);
-INSERT INTO `category` VALUES ('142', '在线留言', '1', '2016-05-04 14:42:31', '50', '7', '19', null, '1', null);
-INSERT INTO `category` VALUES ('146', '人才招聘', '0', '2016-05-19 17:49:37', '50', '7', '0', null, '1', null);
-INSERT INTO `category` VALUES ('147', '长图', '0', '2016-06-02 17:23:49', '50', '7', '100', null, '1', null);
-INSERT INTO `category` VALUES ('148', '短图', '0', '2016-06-02 17:24:21', '50', '7', '100', null, '1', null);
+INSERT INTO `category` VALUES ('19', '联系我们', '0', '2015-09-01 15:31:30', '50', '7', '0', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('23', '常见问题', '0', '2015-09-01 15:33:54', '50', '87', '0', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('33', '投资', '0', '2015-09-02 00:32:02', '50', '87', '0', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('52', '招商加盟', '0', '2016-03-15 17:35:38', '50', '7', '0', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('53', '关于我们', '0', '2016-03-16 17:16:11', '50', '7', '0', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('59', '新闻中心', '0', '2016-03-26 13:18:53', '50', '7', '0', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('61', '客户案例', '0', '2016-03-26 13:26:34', '50', '7', '0', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('62', '新闻', '0', '2016-03-26 13:27:39', '50', '7', '0', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('63', '服务', '0', '2016-03-26 13:29:07', '50', '7', '0', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('65', '网站设计', '3', '2016-03-26 14:34:49', '50', '7', '61', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('66', '手机应用', '1', '2016-03-26 14:35:49', '50', '7', '61', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('67', '平面设计', '2', '2016-03-26 14:36:15', '50', '7', '61', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('68', '公司新闻', '3', '2016-03-27 09:39:22', '50', '7', '59', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('69', '行业新闻', '2', '2016-03-27 09:39:48', '50', '7', '59', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('70', '最新动态', '1', '2016-03-27 09:40:22', '50', '7', '59', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('83', '研发团队', '2', '2016-03-28 16:51:31', '50', '7', '62', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('84', '研发成果', '1', '2016-03-28 16:54:29', '50', '7', '62', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('87', '客户的声音', '0', '2016-03-30 10:27:42', '50', '7', '0', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('93', '关于我们', '0', '2016-04-11 19:52:30', '50', '7', '0', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('94', '主营业务', '5', '2016-04-11 19:54:05', '50', '7', '93', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('95', '企业文化', '4', '2016-04-11 19:54:43', '50', '7', '93', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('96', '资质荣誉', '0', '2016-04-11 19:55:18', '50', '7', '93', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('97', '合作伙伴', '0', '2016-04-11 19:55:41', '50', '7', '93', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('98', '企业优势', '0', '2016-04-11 19:56:04', '50', '7', '93', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('99', '服务项目', '0', '2016-04-11 20:32:40', '50', '7', '0', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('100', '首页幻灯', '0', '2016-04-11 20:56:40', '50', '7', '0', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('101', ' 全案设计', '3', '2016-04-11 21:04:41', '50', '7', '99', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('102', '企业形象设计', '4', '2016-04-11 21:05:11', '50', '7', '99', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('103', '产品包装设计', '2', '2016-04-11 21:05:42', '50', '7', '99', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('104', '连锁店设计', '0', '2016-04-11 21:05:57', '50', '7', '99', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('106', '产品列表', '0', '2016-04-11 21:15:27', '50', '7', '0', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('107', '产品一类', '2', '2016-04-11 21:15:43', '50', '7', '106', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('108', '产品二类', '1', '2016-04-11 21:16:21', '50', '7', '106', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('115', '专家研究院', '0', '2016-04-11 21:29:24', '50', '7', '0', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('133', '网站优化', '3', '2016-04-17 18:32:05', '50', '7', '53', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('134', '网络营销', '2', '2016-04-17 18:33:01', '50', '7', '53', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('135', '域名注册', '1', '2016-04-17 18:33:47', '50', '7', '53', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('136', '优化报价', '0', '2016-04-17 21:13:17', '50', '7', '52', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('138', '服务中心', '0', '2016-04-29 17:15:49', '50', '7', '63', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('141', '联系我们', '2', '2016-05-04 14:42:07', '50', '7', '19', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('142', '在线留言', '1', '2016-05-04 14:42:31', '50', '7', '19', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('146', '人才招聘', '0', '2016-05-19 17:49:37', '50', '7', '0', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('147', '长图', '0', '2016-06-02 17:23:49', '50', '7', '100', null, '1', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `category` VALUES ('148', '短图', '0', '2016-06-02 17:24:21', '50', '7', '100', null, '1', null, null, '0', '0', null, '0', null, '0');
 
 -- ----------------------------
--- Table structure for `cms_article`
+-- Table structure for cms_article
 -- ----------------------------
 DROP TABLE IF EXISTS `cms_article`;
 CREATE TABLE `cms_article` (
@@ -659,7 +666,7 @@ INSERT INTO `cms_article` VALUES ('218', '', '<p>锐诚PPT培训部总监，17�
 INSERT INTO `cms_article` VALUES ('219', '', '<p>锐诚PPT金牌设计师，毕业于上海美术学院视觉传达专业，曾在国内某知名4A广告公司任职，五年动画和PPT设计经验，拥有丰富的高端定制设计经验，专注于企业展示/工作汇报/品牌宣讲/竞聘/路演等高端PPT设计，设计理念：创意是设计的灵魂！在动画、质感和版式的设计上力求完美。</p><p><br/></p>', 'f,', '', '/115\\219.html', '', '0', '1');
 
 -- ----------------------------
--- Table structure for `cms_class_50`
+-- Table structure for cms_class_50
 -- ----------------------------
 DROP TABLE IF EXISTS `cms_class_50`;
 CREATE TABLE `cms_class_50` (
@@ -680,7 +687,7 @@ INSERT INTO `cms_class_50` VALUES ('6', '2', '1');
 INSERT INTO `cms_class_50` VALUES ('7', '1', '1');
 
 -- ----------------------------
--- Table structure for `cms_column`
+-- Table structure for cms_column
 -- ----------------------------
 DROP TABLE IF EXISTS `cms_column`;
 CREATE TABLE `cms_column` (
@@ -746,7 +753,7 @@ INSERT INTO `cms_column` VALUES ('147', '', '', '1', 'index.html', 'index.html',
 INSERT INTO `cms_column` VALUES ('148', '', '', '1', 'index.html', 'index.html', null, '1', '/100/148', '0');
 
 -- ----------------------------
--- Table structure for `comment`
+-- Table structure for comment
 -- ----------------------------
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
@@ -771,7 +778,35 @@ CREATE TABLE `comment` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `diy_form`
+-- Table structure for dict
+-- ----------------------------
+DROP TABLE IF EXISTS `dict`;
+CREATE TABLE `dict` (
+  `dict_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `dict_value` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '数据值',
+  `dict_label` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '标签名',
+  `dict_type` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '类型',
+  `dict_description` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '描述',
+  `dict_sort` int(10) NOT NULL DEFAULT '0' COMMENT '排序（升序）',
+  `dict_parent_id` varchar(64) COLLATE utf8_bin DEFAULT '0' COMMENT '父级编号',
+  `dict_create_by` int(64) NOT NULL DEFAULT '0' COMMENT '创建者',
+  `dict_create_date` datetime NOT NULL COMMENT '创建时间',
+  `dict_update_by` int(64) DEFAULT '0' COMMENT '更新者',
+  `dict_update_date` datetime DEFAULT NULL COMMENT '更新时间',
+  `dict_remarks` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '备注信息',
+  `dict_del` int(1) NOT NULL DEFAULT '0' COMMENT '删除标记',
+  PRIMARY KEY (`dict_id`),
+  KEY `dict_value` (`dict_value`),
+  KEY `dict_label` (`dict_label`),
+  KEY `dict_del` (`dict_del`)
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='字典表';
+
+-- ----------------------------
+-- Records of dict
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for diy_form
 -- ----------------------------
 DROP TABLE IF EXISTS `diy_form`;
 CREATE TABLE `diy_form` (
@@ -788,7 +823,7 @@ CREATE TABLE `diy_form` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `diy_form_field`
+-- Table structure for diy_form_field
 -- ----------------------------
 DROP TABLE IF EXISTS `diy_form_field`;
 CREATE TABLE `diy_form_field` (
@@ -808,7 +843,7 @@ CREATE TABLE `diy_form_field` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `manager`
+-- Table structure for manager
 -- ----------------------------
 DROP TABLE IF EXISTS `manager`;
 CREATE TABLE `manager` (
@@ -828,7 +863,7 @@ CREATE TABLE `manager` (
 INSERT INTO `manager` VALUES ('50', 'msopen', 'msopen', '9d8622060de5f24937b60585c3f4d66b', '48', '0', '2015-09-18 11:54:36');
 
 -- ----------------------------
--- Table structure for `manager_model_page`
+-- Table structure for manager_model_page
 -- ----------------------------
 DROP TABLE IF EXISTS `manager_model_page`;
 CREATE TABLE `manager_model_page` (
@@ -842,7 +877,7 @@ CREATE TABLE `manager_model_page` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `mdiy_content_model`
+-- Table structure for mdiy_content_model
 -- ----------------------------
 DROP TABLE IF EXISTS `mdiy_content_model`;
 CREATE TABLE `mdiy_content_model` (
@@ -862,7 +897,7 @@ INSERT INTO `mdiy_content_model` VALUES ('2', '商品品牌', 'mdiy_brand_2', '2
 INSERT INTO `mdiy_content_model` VALUES ('3', '自定义', 'mdiy_mooc_50', '50', '0');
 
 -- ----------------------------
--- Table structure for `mdiy_content_mode_field`
+-- Table structure for mdiy_content_mode_field
 -- ----------------------------
 DROP TABLE IF EXISTS `mdiy_content_mode_field`;
 CREATE TABLE `mdiy_content_mode_field` (
@@ -889,10 +924,41 @@ INSERT INTO `mdiy_content_mode_field` VALUES ('10', '描述3', 'descripTh', '2',
 INSERT INTO `mdiy_content_mode_field` VALUES ('12', '描述5', 'descripFi', '2', null, '1', '3', null, '0', '1');
 INSERT INTO `mdiy_content_mode_field` VALUES ('5', '产品参数', 'detail', '2', null, '1', '1', null, '0', '1');
 INSERT INTO `mdiy_content_mode_field` VALUES ('11', '描述4', 'descripFo', '2', null, '1', '3', null, '0', '1');
-INSERT INTO `mdiy_content_mode_field` VALUES ('7', '多图', 'images', '7', null, '1', '3', null, '0', '1');
 
 -- ----------------------------
--- Table structure for `mdiy_search`
+-- Table structure for mdiy_mooc_50
+-- ----------------------------
+DROP TABLE IF EXISTS `mdiy_mooc_50`;
+CREATE TABLE `mdiy_mooc_50` (
+  `basicId` int(11) NOT NULL,
+  `images` varchar(225) DEFAULT NULL,
+  `descripone` varchar(225) DEFAULT NULL,
+  `descriptwo` varchar(225) DEFAULT NULL,
+  `descripTh` varchar(225) DEFAULT NULL,
+  `descripFo` varchar(225) DEFAULT NULL,
+  `descripFi` varchar(225) DEFAULT NULL,
+  PRIMARY KEY (`basicId`),
+  CONSTRAINT `fk_mdiy_mooc_50_basicId` FOREIGN KEY (`basicId`) REFERENCES `basic` (`BASIC_ID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mdiy_mooc_50
+-- ----------------------------
+INSERT INTO `mdiy_mooc_50` VALUES ('52', '/upload/article/1638/1464835901016.jpeg|/upload/article/1638/1464835901049.jpg|/upload/article/1638/1464835901116.jpg|/upload/article/1638/1464835901184.jpeg', '一幅好照片要把观众的注意力吸引到趣味中心&mdash;&mdash;被摄主体上。无论是拍什么 类型的照片，都会有一个主体你喜欢拍人物，拍生态，这些都不是问题，但是一旦主体被模糊，欣赏照片时就会忽略照片的主体', '这样的照片是不失败不完美的，因 为真正想让观众看的东西并没有一眼看到。例如婚纱照，主体肯定是人物新娘和新郎。如果目光都被新娘后面的景色吸引，而不是新娘，这肯定不会是我们想照的', '网页设计师的重要任务不是根据内容做出网页，而是根据用户需求设计出让用户喜欢并积极使用的网页，能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo', '有让用户点击或者传播的欲望？突出设计 的重点就如同突出摄影的被摄主体一样，把控视觉的重点，你的设计一定会非常精彩。', '能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo;G点&rdquo;，有让用户点击或者传播的欲望？');
+INSERT INTO `mdiy_mooc_50` VALUES ('53', '/upload/article/1638/1464835910115.jpg|/upload/article/1638/1464835910168.jpg|/upload/article/1638/1464835910230.jpeg|/upload/article/1638/1464835910293.jpeg', '能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo;G点&rdquo;，有让用户点击或者传播的欲望？', '有让用户点击或者传播的欲望？突出设计 的重点就如同突出摄影的被摄主体一样，把控视觉的重点，你的设计一定会非常精彩。', '网页设计师的重要任务不是根据内容做出网页，而是根据用户需求设计出让用户喜欢并积极使用的网页，能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo', '这样的照片是不失败不完美的，因 为真正想让观众看的东西并没有一眼看到。例如婚纱照，主体肯定是人物新娘和新郎。如果目光都被新娘后面的景色吸引，而不是新娘，这肯定不会是我们想照的', '一幅好照片要把观众的注意力吸引到趣味中心&mdash;&mdash;被摄主体上。无论是拍什么 类型的照片，都会有一个主体你喜欢拍人物，拍生态，这些都不是问题，但是一旦主体被模糊，欣赏照片时就会忽略照片的主体');
+INSERT INTO `mdiy_mooc_50` VALUES ('54', '/upload/article/1638/1464836001681.jpg|/upload/article/1638/1464836001737.jpg|/upload/article/1638/1464836001790.jpeg|/upload/article/1638/1464836001868.jpg', '一幅好照片要把观众的注意力吸引到趣味中心&mdash;&mdash;被摄主体上。无论是拍什么 类型的照片，都会有一个主体你喜欢拍人物，拍生态，这些都不是问题，但是一旦主体被模糊，欣赏照片时就会忽略照片的主体', '这样的照片是不失败不完美的，因 为真正想让观众看的东西并没有一眼看到。例如婚纱照，主体肯定是人物新娘和新郎。如果目光都被新娘后面的景色吸引，而不是新娘，这肯定不会是我们想照的', '网页设计师的重要任务不是根据内容做出网页，而是根据用户需求设计出让用户喜欢并积极使用的网页，能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo', '有让用户点击或者传播的欲望？突出设计 的重点就如同突出摄影的被摄主体一样，把控视觉的重点，你的设计一定会非常精彩。', '能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo;G点&rdquo;，有让用户点击或者传播的欲望？');
+INSERT INTO `mdiy_mooc_50` VALUES ('55', '/upload/article/1638/1464835993804.jpg|/upload/article/1638/1464835993869.jpg|/upload/article/1638/1464835993934.jpeg|/upload/article/1638/1464835993997.jpeg', '想象一下走进一个狭小拥挤，遍地垃圾的商店。店员不停怂恿你买自己不想要的东西。在这种情况下，你肯定会马上转身离开去别家。如果有人给你压力，逼迫你在充满敌意的环境下快速做出抉择，你会自然而然的失去信任感。这一点也适用于网络。', '网上充满着向你推销各种服务和产品的人。用户要先信任你，才能考虑从你那购买产品或服务。下面列出了10个比较流行的让用户相信、信任你登陆页面的方法。你可以借鉴或者干脆照搬这些方法为你的网上业务建立起值得信赖的网站。', '每个来到你登陆页面的用户都会问同一个问题：你能给我带来什么好处？你需要让他们立刻看到你所能提供的价值。使用显眼的标题说明你所能提供的内容，以及你 与竞争对手的不同之处在哪。但是不要太过于强调你自己和你的公司，否则可能会让用户反感而离开。应当着重强调你如何满足用户的需求。', '这样的照片是不失败不完美的，因 为真正想让观众看的东西并没有一眼看到。例如婚纱照，主体肯定是人物新娘和新郎。如果目光都被新娘后面的景色吸引，而不是新娘，这肯定不会是我们想照的', '一幅好照片要把观众的注意力吸引到趣味中心&mdash;&mdash;被摄主体上。无论是拍什么 类型的照片，都会有一个主体你喜欢拍人物，拍生态，这些都不是问题，但是一旦主体被模糊，欣赏照片时就会忽略照片的主体');
+INSERT INTO `mdiy_mooc_50` VALUES ('56', '/upload/article/1638/1464835975699.jpg|/upload/article/1638/1464835975757.jpg|/upload/article/1638/1464835975815.jpeg|/upload/article/1638/1464835975875.jpeg', '能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo;G点&rdquo;，有让用户点击或者传播的欲望？', '有让用户点击或者传播的欲望？突出设计 的重点就如同突出摄影的被摄主体一样，把控视觉的重点，你的设计一定会非常精彩。', '网页设计师的重要任务不是根据内容做出网页，而是根据用户需求设计出让用户喜欢并积极使用的网页，能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo', '这样的照片是不失败不完美的，因 为真正想让观众看的东西并没有一眼看到。例如婚纱照，主体肯定是人物新娘和新郎。如果目光都被新娘后面的景色吸引，而不是新娘，这肯定不会是我们想照的', '一幅好照片要把观众的注意力吸引到趣味中心&mdash;&mdash;被摄主体上。无论是拍什么 类型的照片，都会有一个主体你喜欢拍人物，拍生态，这些都不是问题，但是一旦主体被模糊，欣赏照片时就会忽略照片的主体');
+INSERT INTO `mdiy_mooc_50` VALUES ('57', '/upload/article/1638/1464835969386.jpg|/upload/article/1638/1464835969452.jpeg|/upload/article/1638/1464835969492.jpg|/upload/article/1638/1464835969559.jpg', '能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo;G点&rdquo;，有让用户点击或者传播的欲望？', '有让用户点击或者传播的欲望？突出设计 的重点就如同突出摄影的被摄主体一样，把控视觉的重点，你的设计一定会非常精彩。', '网页设计师的重要任务不是根据内容做出网页，而是根据用户需求设计出让用户喜欢并积极使用的网页，能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo', '这样的照片是不失败不完美的，因 为真正想让观众看的东西并没有一眼看到。例如婚纱照，主体肯定是人物新娘和新郎。如果目光都被新娘后面的景色吸引，而不是新娘，这肯定不会是我们想照的', '一幅好照片要把观众的注意力吸引到趣味中心&mdash;&mdash;被摄主体上。无论是拍什么 类型的照片，都会有一个主体你喜欢拍人物，拍生态，这些都不是问题，但是一旦主体被模糊，欣赏照片时就会忽略照片的主体');
+INSERT INTO `mdiy_mooc_50` VALUES ('58', '/upload/article/1638/1464835892002.jpg|/upload/article/1638/1464835892054.jpg|/upload/article/1638/1464835892116.jpeg|/upload/article/1638/1464835892179.jpg', '一幅好照片要把观众的注意力吸引到趣味中心&mdash;&mdash;被摄主体上。无论是拍什么 类型的照片，都会有一个主体你喜欢拍人物，拍生态，这些都不是问题，但是一旦主体被模糊，欣赏照片时就会忽略照片的主体', '这样的照片是不失败不完美的，因 为真正想让观众看的东西并没有一眼看到。例如婚纱照，主体肯定是人物新娘和新郎。如果目光都被新娘后面的景色吸引，而不是新娘，这肯定不会是我们想照的', '网页设计师的重要任务不是根据内容做出网页，而是根据用户需求设计出让用户喜欢并积极使用的网页，能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo', '有让用户点击或者传播的欲望？突出设计 的重点就如同突出摄影的被摄主体一样，把控视觉的重点，你的设计一定会非常精彩。', '能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo;G点&rdquo;，有让用户点击或者传播的欲望？');
+INSERT INTO `mdiy_mooc_50` VALUES ('59', '/upload/article/1638/1464835874500.jpg|/upload/article/1638/1464835874565.jpg|/upload/article/1638/1464835874617.jpeg|/upload/article/1638/1464835874678.jpg', '能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo;G点&rdquo;，有让用户点击或者传播的欲望？', '有让用户点击或者传播的欲望？突出设计 的重点就如同突出摄影的被摄主体一样，把控视觉的重点，你的设计一定会非常精彩。', '网页设计师的重要任务不是根据内容做出网页，而是根据用户需求设计出让用户喜欢并积极使用的网页，能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo', '这样的照片是不失败不完美的，因 为真正想让观众看的东西并没有一眼看到。例如婚纱照，主体肯定是人物新娘和新郎。如果目光都被新娘后面的景色吸引，而不是新娘，这肯定不会是我们想照的', '一幅好照片要把观众的注意力吸引到趣味中心&mdash;&mdash;被摄主体上。无论是拍什么 类型的照片，都会有一个主体你喜欢拍人物，拍生态，这些都不是问题，但是一旦主体被模糊，欣赏照片时就会忽略照片的主体');
+INSERT INTO `mdiy_mooc_50` VALUES ('60', '/upload/article/1638/1464835866478.jpg|/upload/article/1638/1464835866538.jpg|/upload/article/1638/1464835866582.jpeg|/upload/article/1638/1464835866640.jpeg', '一幅好照片要把观众的注意力吸引到趣味中心&mdash;&mdash;被摄主体上。无论是拍什么 类型的照片，都会有一个主体你喜欢拍人物，拍生态，这些都不是问题，但是一旦主体被模糊，欣赏照片时就会忽略照片的主体', '这样的照片是不失败不完美的，因 为真正想让观众看的东西并没有一眼看到。例如婚纱照，主体肯定是人物新娘和新郎。如果目光都被新娘后面的景色吸引，而不是新娘，这肯定不会是我们想照的', '网页设计师的重要任务不是根据内容做出网页，而是根据用户需求设计出让用户喜欢并积极使用的网页，能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo', '有让用户点击或者传播的欲望？突出设计 的重点就如同突出摄影的被摄主体一样，把控视觉的重点，你的设计一定会非常精彩。', '能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo;G点&rdquo;，有让用户点击或者传播的欲望？');
+INSERT INTO `mdiy_mooc_50` VALUES ('61', '/upload/article/1638/1464835988106.jpg|/upload/article/1638/1464835988154.jpg|/upload/article/1638/1464835988216.jpeg|/upload/article/1638/1464835988284.jpg', '一幅好照片要把观众的注意力吸引到趣味中心&mdash;&mdash;被摄主体上。无论是拍什么 类型的照片，都会有一个主体你喜欢拍人物，拍生态，这些都不是问题，但是一旦主体被模糊，欣赏照片时就会忽略照片的主体', '这样的照片是不失败不完美的，因 为真正想让观众看的东西并没有一眼看到。例如婚纱照，主体肯定是人物新娘和新郎。如果目光都被新娘后面的景色吸引，而不是新娘，这肯定不会是我们想照的', '网页设计师的重要任务不是根据内容做出网页，而是根据用户需求设计出让用户喜欢并积极使用的网页，能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo', '有让用户点击或者传播的欲望？突出设计 的重点就如同突出摄影的被摄主体一样，把控视觉的重点，你的设计一定会非常精彩。', '能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo;G点&rdquo;，有让用户点击或者传播的欲望？');
+INSERT INTO `mdiy_mooc_50` VALUES ('62', '/upload/article/1638/1464835856964.jpg|/upload/article/1638/1464835857006.jpg|/upload/article/1638/1464835857074.jpeg|/upload/article/1638/1464835857133.jpg', '能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo;G点&rdquo;，有让用户点击或者传播的欲望？', '有让用户点击或者传播的欲望？突出设计 的重点就如同突出摄影的被摄主体一样，把控视觉的重点，你的设计一定会非常精彩。', '网页设计师的重要任务不是根据内容做出网页，而是根据用户需求设计出让用户喜欢并积极使用的网页，能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo', '这样的照片是不失败不完美的，因 为真正想让观众看的东西并没有一眼看到。例如婚纱照，主体肯定是人物新娘和新郎。如果目光都被新娘后面的景色吸引，而不是新娘，这肯定不会是我们想照的', '一幅好照片要把观众的注意力吸引到趣味中心&mdash;&mdash;被摄主体上。无论是拍什么 类型的照片，都会有一个主体你喜欢拍人物，拍生态，这些都不是问题，但是一旦主体被模糊，欣赏照片时就会忽略照片的主体');
+INSERT INTO `mdiy_mooc_50` VALUES ('63', '/upload/article/1638/1464835842429.jpg|/upload/article/1638/1464835842841.jpeg|/upload/article/1638/1464835842898.jpg|/upload/article/1638/1464835842964.jpeg', '一幅好照片要把观众的注意力吸引到趣味中心&mdash;&mdash;被摄主体上。无论是拍什么 类型的照片，都会有一个主体你喜欢拍人物，拍生态，这些都不是问题，但是一旦主体被模糊，欣赏照片时就会忽略照片的主体', '这样的照片是不失败不完美的，因 为真正想让观众看的东西并没有一眼看到。例如婚纱照，主体肯定是人物新娘和新郎。如果目光都被新娘后面的景色吸引，而不是新娘，这肯定不会是我们想照的', '网页设计师的重要任务不是根据内容做出网页，而是根据用户需求设计出让用户喜欢并积极使用的网页，能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo', '有让用户点击或者传播的欲望？突出设计 的重点就如同突出摄影的被摄主体一样，把控视觉的重点，你的设计一定会非常精彩。', '能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo;G点&rdquo;，有让用户点击或者传播的欲望？');
+
+-- ----------------------------
+-- Table structure for mdiy_search
 -- ----------------------------
 DROP TABLE IF EXISTS `mdiy_search`;
 CREATE TABLE `mdiy_search` (
@@ -907,11 +973,11 @@ CREATE TABLE `mdiy_search` (
 -- ----------------------------
 -- Records of mdiy_search
 -- ----------------------------
-INSERT INTO `mdiy_search` VALUES ('1', '头部', 'search.htm', '1');
-INSERT INTO `mdiy_search` VALUES ('9', '列表页面搜索', 'search-list.htm', '1');
+INSERT INTO `mdiy_search` VALUES ('1', '头部', 'search.htm', '1', 'cms');
+INSERT INTO `mdiy_search` VALUES ('9', '列表页面搜索', 'search-list.htm', '1', 'cms');
 
 -- ----------------------------
--- Table structure for `model`
+-- Table structure for model
 -- ----------------------------
 DROP TABLE IF EXISTS `model`;
 CREATE TABLE `model` (
@@ -955,7 +1021,7 @@ INSERT INTO `model` VALUES ('90', '自定义表单', '12050000', '84', 'mdiy/diy
 INSERT INTO `model` VALUES ('91', '模板管理', '12020000', '84', 'template/queryTemplateSkin.do', null, null, null, null, null);
 
 -- ----------------------------
--- Table structure for `model_template`
+-- Table structure for model_template
 -- ----------------------------
 DROP TABLE IF EXISTS `model_template`;
 CREATE TABLE `model_template` (
@@ -980,7 +1046,7 @@ INSERT INTO `model_template` VALUES ('3', '0', '1', 'userCenter.htm', '个人中
 INSERT INTO `model_template` VALUES ('4', '0', '1', 'changePassWord.htm', '修改密码', 'changePassWord');
 
 -- ----------------------------
--- Table structure for `people`
+-- Table structure for people
 -- ----------------------------
 DROP TABLE IF EXISTS `people`;
 CREATE TABLE `people` (
@@ -1004,7 +1070,7 @@ CREATE TABLE `people` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `people_user`
+-- Table structure for people_user
 -- ----------------------------
 DROP TABLE IF EXISTS `people_user`;
 CREATE TABLE `people_user` (
@@ -1030,7 +1096,7 @@ CREATE TABLE `people_user` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `role`
+-- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
@@ -1046,7 +1112,7 @@ CREATE TABLE `role` (
 INSERT INTO `role` VALUES ('48', 'msopen', '50');
 
 -- ----------------------------
--- Table structure for `role_model`
+-- Table structure for role_model
 -- ----------------------------
 DROP TABLE IF EXISTS `role_model`;
 CREATE TABLE `role_model` (
@@ -1081,7 +1147,7 @@ INSERT INTO `role_model` VALUES ('90', '48');
 INSERT INTO `role_model` VALUES ('91', '48');
 
 -- ----------------------------
--- Table structure for `system_main_page`
+-- Table structure for system_main_page
 -- ----------------------------
 DROP TABLE IF EXISTS `system_main_page`;
 CREATE TABLE `system_main_page` (
@@ -1096,7 +1162,7 @@ CREATE TABLE `system_main_page` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `system_skin`
+-- Table structure for system_skin
 -- ----------------------------
 DROP TABLE IF EXISTS `system_skin`;
 CREATE TABLE `system_skin` (
@@ -1116,7 +1182,7 @@ CREATE TABLE `system_skin` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `system_skin_manager`
+-- Table structure for system_skin_manager
 -- ----------------------------
 DROP TABLE IF EXISTS `system_skin_manager`;
 CREATE TABLE `system_skin_manager` (
@@ -1130,19 +1196,19 @@ CREATE TABLE `system_skin_manager` (
 -- ----------------------------
 
 -- ----------------------------
--- View structure for `v_article`
+-- View structure for v_article
 -- ----------------------------
 DROP VIEW IF EXISTS `v_article`;
-CREATE VIEW `v_article` AS select `cms_article`.`ARTICLE_BASICID` AS `ARTICLE_BASICID`,`basic`.`BASIC_ID` AS `BASIC_ID`,`basic`.`BASIC_CATEGORYID` AS `BASIC_CATEGORYID`,`basic`.`BASIC_TITLE` AS `BASIC_TITLE`,`basic`.`BASIC_DESCRIPTION` AS `BASIC_DESCRIPTION`,`basic`.`BASIC_THUMBNAILS` AS `BASIC_THUMBNAILS`,`basic`.`BASIC_HIT` AS `BASIC_HIT`,`basic`.`BASIC_DATETIME` AS `BASIC_DATETIME`,`basic`.`BASIC_UPDATETIME` AS `BASIC_UPDATETIME`,`basic`.`BASIC_PEOPLEID` AS `BASIC_PEOPLEID`,`cms_article`.`ARTICLE_AUTHOR` AS `ARTICLE_AUTHOR`,`cms_article`.`ARTICLE_CONTENT` AS `ARTICLE_CONTENT`,`cms_article`.`ARTICLE_TYPE` AS `ARTICLE_TYPE`,`cms_article`.`ARTICLE_SOURCE` AS `ARTICLE_SOURCE`,`cms_article`.`ARTICLE_URL` AS `ARTICLE_URL`,`cms_article`.`ARTICLE_KEYWORD` AS `ARTICLE_KEYWORD`,`cms_article`.`ARTICLE_FREEORDER` AS `ARTICLE_FREEORDER`,`cms_article`.`ARTICLE_WEBID` AS `ARTICLE_WEBID`,`cms_column`.`COLUMN_KEYWORD` AS `COLUMN_KEYWORD`,`cms_column`.`COLUMN_DESCRIP` AS `COLUMN_DESCRIP`,`cms_column`.`COLUMN_TYPE` AS `COLUMN_TYPE`,`cms_column`.`COLUMN_URL` AS `COLUMN_URL`,`cms_column`.`COLUMN_LISTURL` AS `COLUMN_LISTURL`,`cms_column`.`COLUMN_TENTMODELID` AS `COLUMN_TENTMODELID`,`cms_column`.`COLUMN_WEBSITEID` AS `COLUMN_WEBSITEID`,`cms_column`.`COLUMN_PATH` AS `column_path`,`cms_column`.`COLUMN_CONTENTMODELID` AS `COLUMN_CONTENTMODELID`,`category`.`CATEGORY_TITLE` AS `CATEGORY_TITLE`,`category`.`CATEGORY_APPID` AS `CATEGORY_APPID`,`cms_column`.`COLUMN_CATEGORYID` AS `COLUMN_CATEGORYID`,`category`.`CATEGORY_ID` AS `CATEGORY_ID`,`basic`.`BASIC_SORT` AS `BASIC_SORT` from (((`basic` join `cms_article` on((`basic`.`BASIC_ID` = `cms_article`.`ARTICLE_BASICID`))) join `cms_column` on((`basic`.`BASIC_CATEGORYID` = `cms_column`.`COLUMN_CATEGORYID`))) join `category` on((`cms_column`.`COLUMN_CATEGORYID` = `category`.`CATEGORY_ID`))) ;
+CREATE  VIEW `v_article` AS select `cms_article`.`ARTICLE_BASICID` AS `ARTICLE_BASICID`,`basic`.`BASIC_ID` AS `BASIC_ID`,`basic`.`BASIC_CATEGORYID` AS `BASIC_CATEGORYID`,`basic`.`BASIC_TITLE` AS `BASIC_TITLE`,`basic`.`BASIC_DESCRIPTION` AS `BASIC_DESCRIPTION`,`basic`.`BASIC_THUMBNAILS` AS `BASIC_THUMBNAILS`,`basic`.`BASIC_HIT` AS `BASIC_HIT`,`basic`.`BASIC_DATETIME` AS `BASIC_DATETIME`,`basic`.`BASIC_UPDATETIME` AS `BASIC_UPDATETIME`,`basic`.`BASIC_PEOPLEID` AS `BASIC_PEOPLEID`,`cms_article`.`ARTICLE_AUTHOR` AS `ARTICLE_AUTHOR`,`cms_article`.`ARTICLE_CONTENT` AS `ARTICLE_CONTENT`,`cms_article`.`ARTICLE_TYPE` AS `ARTICLE_TYPE`,`cms_article`.`ARTICLE_SOURCE` AS `ARTICLE_SOURCE`,`cms_article`.`ARTICLE_URL` AS `ARTICLE_URL`,`cms_article`.`ARTICLE_KEYWORD` AS `ARTICLE_KEYWORD`,`cms_article`.`ARTICLE_FREEORDER` AS `ARTICLE_FREEORDER`,`cms_article`.`ARTICLE_WEBID` AS `ARTICLE_WEBID`,`cms_column`.`COLUMN_KEYWORD` AS `COLUMN_KEYWORD`,`cms_column`.`COLUMN_DESCRIP` AS `COLUMN_DESCRIP`,`cms_column`.`COLUMN_TYPE` AS `COLUMN_TYPE`,`cms_column`.`COLUMN_URL` AS `COLUMN_URL`,`cms_column`.`COLUMN_LISTURL` AS `COLUMN_LISTURL`,`cms_column`.`COLUMN_TENTMODELID` AS `COLUMN_TENTMODELID`,`cms_column`.`COLUMN_WEBSITEID` AS `COLUMN_WEBSITEID`,`cms_column`.`COLUMN_PATH` AS `column_path`,`cms_column`.`COLUMN_CONTENTMODELID` AS `COLUMN_CONTENTMODELID`,`category`.`CATEGORY_TITLE` AS `CATEGORY_TITLE`,`category`.`CATEGORY_APPID` AS `CATEGORY_APPID`,`cms_column`.`COLUMN_CATEGORYID` AS `COLUMN_CATEGORYID`,`category`.`CATEGORY_ID` AS `CATEGORY_ID`,`basic`.`BASIC_SORT` AS `BASIC_SORT` from (((`basic` join `cms_article` on((`basic`.`BASIC_ID` = `cms_article`.`ARTICLE_BASICID`))) join `cms_column` on((`basic`.`BASIC_CATEGORYID` = `cms_column`.`COLUMN_CATEGORYID`))) join `category` on((`cms_column`.`COLUMN_CATEGORYID` = `category`.`CATEGORY_ID`))) ;
 
 -- ----------------------------
--- View structure for `v_people_user`
+-- View structure for v_people_user
 -- ----------------------------
 DROP VIEW IF EXISTS `v_people_user`;
 CREATE  VIEW `v_people_user` AS select `people`.`PEOPLE_ID` AS `PEOPLE_ID`,`people`.`PEOPLE_PHONE` AS `PEOPLE_PHONE`,`people`.`PEOPLE_NAME` AS `PEOPLE_NAME`,`people`.`PEOPLE_PASSWORD` AS `PEOPLE_PASSWORD`,`people`.`PEOPLE_DATETIME` AS `PEOPLE_DATETIME`,`people`.`PEOPLE_APP_ID` AS `PEOPLE_APP_ID`,`people`.`PEOPLE_MAIL` AS `PEOPLE_MAIL`,`people`.`PEOPLE_STATE` AS `PEOPLE_STATE`,`people`.`PEOPLE_CODE` AS `PEOPLE_CODE`,`people`.`PEOPLE_CODESENDDATE` AS `PEOPLE_CODESENDDATE`,`people`.`PEOPLE_PHONECHECK` AS `PEOPLE_PHONECHECK`,`people`.`PEOPLE_MAILLCHECK` AS `PEOPLE_MAILLCHECK`,`people_user`.`PU_PEOPLE_ID` AS `PU_PEOPLE_ID`,`people_user`.`PU_REAL_NAME` AS `PU_REAL_NAME`,`people_user`.`PU_ADDRESS` AS `PU_ADDRESS`,`people_user`.`PU_ICON` AS `PU_ICON`,`people_user`.`PU_NICKNAME` AS `PU_NICKNAME`,`people_user`.`PU_SEX` AS `PU_SEX`,`people_user`.`PU_BIRTHDAY` AS `PU_BIRTHDAY`,`people_user`.`PU_CARD` AS `PU_CARD`,`people_user`.`PU_APP_ID` AS `PU_APP_ID` from (`people` left join `people_user` on((`people`.`PEOPLE_ID` = `people_user`.`PU_PEOPLE_ID`))) ;
 
 -- ----------------------------
--- Procedure structure for `p_getAllChildren`
+-- Procedure structure for p_getAllChildren
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `p_getAllChildren`;
 DELIMITER ;;
